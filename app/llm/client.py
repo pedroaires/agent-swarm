@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from core.config import get_config
+from app.core.config import get_config
 from langchain_openai import ChatOpenAI 
 from langchain_core.messages import BaseMessage
 
