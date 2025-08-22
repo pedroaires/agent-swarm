@@ -30,4 +30,4 @@ class LLMClient:
     @property
     def chat_model(self) -> ChatOpenAI:
         """Returns the Langchain instance for the graphs/chains usage"""
-        return self._chat
+        return self._lc
