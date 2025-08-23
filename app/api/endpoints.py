@@ -1,25 +1,36 @@
-from typing import Dict
-from fastapi import APIRouter
+from typing import Dict, List
+from fastapi import APIRouter, HTTPException
 from app.api.dtos import ProcessMessageResponseDTO, ProcessMessageRequestDTO, IngestRequestDTO
 from app.rag.ingestion import build_index
+from app.agents.workflow import build_graph
+from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.documents import Document
 
 router = APIRouter()
-
+_GRAPH = build_graph()
 
 @router.get("/health", summary="Healthcheck")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
 
-@router.get("/process_message", response_model=ProcessMessageResponseDTO, summary="Uses agents to respond to a user request message")
-def process_message() -> ProcessMessageResponseDTO:
-    return ProcessMessageResponseDTO(response="Agent Message", source_agent_response="Source Agent Response", agent_workflow="Agent Workflow")
+@router.post("/process_message", response_model=ProcessMessageResponseDTO, summary="Uses agents to respond to a user request message")
+def process_message(req: ProcessMessageRequestDTO) -> Dict[str, str]:
+    if not req.message:
+        raise HTTPException(status_code=400, detail="User message is required")
+
+    init = {"messages": [HumanMessage(content=req.message)]}
+    config = {"configurable": {"thread_id": getattr(req, "user_id", None) or "default"}}
+
+    state = _GRAPH.invoke(init, config=config)
+    msgs = state.get("messages", [])
+    if not msgs:
+        raise HTTPException(status_code=500, detail="Empty response from agent swarm")
+
+    final_answer = msgs[-1].content
+    return {"response": final_answer}
 
 @router.post("/ingest", summary="Endpoint to execute RAG ingestion phase.")
 def ingest(req: IngestRequestDTO) -> Dict[str, str]:
     build_index(req.urls)
     return {"status": "ok"}
 
-# @router.post("/rag", summary="Endpoint to execute RAG QA to test RAG.")
-# def rag(req: ProcessMessageRequestDTO) -> Dict[str, str]:
-#     answer = rag_service.ask(req.message)
-#     return {"status": "ok", "answer": answer}

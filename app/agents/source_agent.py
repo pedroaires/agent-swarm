@@ -14,11 +14,11 @@ SOURCE_PROMPT = (
     """
 )
 
-def create_source_agent():
+def create_source_agent(tools):
     source_agent = create_react_agent(
         model=LLMClient().chat_model,
-        name="source_agent",
-        tools=[web_search_tool, rag_tool],
+        name="knowledge_agent",
+        tools=tools + [web_search_tool, rag_tool],
         prompt=SOURCE_PROMPT
     )
     return source_agent

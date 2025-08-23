@@ -12,11 +12,11 @@ PERSONALITY_PROMPT = (
     """
 )
 
-def create_personality_agent():
+def create_personality_agent(tools):
     personality_agent = create_react_agent(
         model=LLMClient().chat_model,
         name="personality_agent",
-        tools=[],
+        tools=tools,
         prompt=PERSONALITY_PROMPT
     )
     return personality_agent

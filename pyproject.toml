@@ -18,7 +18,8 @@ dependencies = [
     "chromadb (>=1.0.20,<2.0.0)",
     "langgraph (>=0.6.6,<0.7.0)",
     "langgraph-supervisor (>=0.0.29,<0.0.30)",
-    "tavily-python (>=0.7.11,<0.8.0)"
+    "tavily-python (>=0.7.11,<0.8.0)",
+    "langgraph-swarm (>=0.0.14,<0.0.15)"
 ]
 
 

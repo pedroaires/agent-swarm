@@ -2,7 +2,7 @@ from typing import Dict, Literal
 from pydantic import BaseModel
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
-from langgraph_supervisor import create_supervisor
+from langgraph.prebuilt import create_react_agent
 from langchain_core.language_models import BaseChatModel
 
 from app.llm.client import LLMClient
@@ -17,11 +17,11 @@ ROUTER_PROMPT = (
     """
 )
 
-def create_router_agent(agent_list):
-    router_agent = create_supervisor(
+def create_router_agent(tools):
+    router_agent = create_react_agent(
         model=LLMClient().chat_model,
-        agents=agent_list,
-        output_mode="last_message",
+        name="router",
+        tools=tools,
         prompt=ROUTER_PROMPT
     )
     return router_agent

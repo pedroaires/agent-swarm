@@ -1,0 +1,13 @@
+from langgraph_swarm import create_handoff_tool
+
+def transferToPersonality():
+    return create_handoff_tool(
+        agent_name="personality_agent",
+        description="Transfer user to the personality agent."
+    )
+
+def transferToKnowledgeAgent():
+    return create_handoff_tool(
+        agent_name="knowledge_agent",
+        description="Transfer user to the knowledge agent."
+    )
