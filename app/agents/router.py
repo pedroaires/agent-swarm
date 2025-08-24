@@ -17,9 +17,9 @@ ROUTER_PROMPT = (
     """
 )
 
-def create_router_agent(tools):
+def create_router_agent(tools, model):
     router_agent = create_react_agent(
-        model=LLMClient().chat_model,
+        model=model,
         name="router",
         tools=tools,
         prompt=ROUTER_PROMPT

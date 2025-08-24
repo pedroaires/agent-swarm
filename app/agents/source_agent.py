@@ -4,8 +4,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_core.language_models import BaseChatModel
 from langgraph.prebuilt import create_react_agent
-from .tools .web_search import web_search_tool
-from .tools .rag_tool import rag_tool
+from .tools.web_search import web_search_tool
+from .tools.rag_tool import rag_tool
 
 from app.llm.client import LLMClient
 SOURCE_PROMPT = (
@@ -14,9 +14,9 @@ SOURCE_PROMPT = (
     """
 )
 
-def create_source_agent(tools):
+def create_source_agent(tools, model):
     source_agent = create_react_agent(
-        model=LLMClient().chat_model,
+        model=model,
         name="knowledge_agent",
         tools=tools + [web_search_tool, rag_tool],
         prompt=SOURCE_PROMPT
