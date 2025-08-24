@@ -5,7 +5,7 @@ description = "Multi-agent system where agents collaborate to process a user req
 authors = [
     {name = "pedroaires",email = "pedro.aires.cabral@gmail.com"}
 ]
-readme = "README.md"
+
 requires-python = "^3.11"
 dependencies = [
     "langchain (>=0.3.27,<0.4.0)",
