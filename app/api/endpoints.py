@@ -17,9 +17,14 @@ def health() -> Dict[str, str]:
 def process_message(req: ProcessMessageRequestDTO) -> Dict[str, str]:
     if not req.message:
         raise HTTPException(status_code=400, detail="User message is required")
+    if not req.user_id:
+        raise HTTPException(status_code=400, detail="User Id is required")
 
     init = {"messages": [HumanMessage(content=req.message)]}
-    config = {"configurable": {"thread_id": getattr(req, "user_id", None) or "default"}}
+    config = {"configurable": {
+        "thread_id": req.user_id ,
+        "user_id": req.user_id
+        }}
 
     state = _GRAPH.invoke(init, config=config)
     msgs = state.get("messages", [])
