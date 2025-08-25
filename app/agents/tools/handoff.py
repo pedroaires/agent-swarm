@@ -11,3 +11,15 @@ def transferToKnowledgeAgent():
         agent_name="knowledge_agent",
         description="Transfer user to the knowledge agent."
     )
+
+def transferToCustomerSupport():
+    return create_handoff_tool(
+        agent_name="customer_support_agent",
+        description="Transfer user to the customer support agent."
+    )
+
+def transferToRouterAgent():
+    return create_handoff_tool(
+        agent_name="router",
+        description="Transfer user to the router"
+    )
