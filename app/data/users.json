@@ -1,0 +1,20 @@
+{
+  "u_123": {
+    "user_id": "u_123",
+    "name": "Ana",
+    "tier": "Gold",
+    "email": "ana@example.com"
+  },
+  "u_456": {
+    "user_id": "u_456",
+    "name": "Pedro",
+    "tier": "Silver",
+    "email": "pedro@example.com"
+  },
+  "u_789": {
+    "user_id": "u_789",
+    "name": "Marina",
+    "tier": "Basic",
+    "email": "marina@example.com"
+  }
+}
