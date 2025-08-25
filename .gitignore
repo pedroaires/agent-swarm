@@ -209,6 +209,7 @@ __marimo__/
 # Poetry
 poetry.lock
 
-# Data
-data/
-
+# ChromaDB 
+app/data/chroma_db/
+app/data/chroma_db/**
+**/chroma.sqlite3
