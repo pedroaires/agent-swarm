@@ -4,7 +4,7 @@ import logging
 from typing import List, Optional
 
 from langchain.schema import Document
-from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 
 logger = logging.getLogger(__name__)
