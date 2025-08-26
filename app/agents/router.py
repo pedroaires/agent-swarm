@@ -10,21 +10,16 @@ from app.llm.client import LLMClient
 
 ROUTER_PROMPT = """
 ROLE
-- You are the Router. You never talk to the user.
-- Your job is to decide which agent should act next.
+- You are the Router. You never talk to the user or write messages you only use the tools to transfer to the most suited agent.
+- Your job is to decide which agent should act next and call the tool to transfer to that agent.
 
 INPUTS
 - Latest user message and the conversation state.
 - Outputs from other agents (summaries/evidence).
 
-TOOLS (call EXACTLY ONE)
-- transfer_to_knowledge_agent(reason, needed_info?)
-- transfer_to_customer_support(reason, user_fields?)
-- transfer_to_personality(reason)
-
 DECISION RULES
 1) If public/company knowledge is required (not user-specific) → transgfer to the knowledge agent.
-2) If user-specific account/payment data is required → transfer to the customer support agent.
+2) If user-specific account/payment data is required → transfer to the account data agent.
 3) If all necessary info is already available or nothing else can be done → transfer to the personality agent.
 
 CONSTRAINTS
