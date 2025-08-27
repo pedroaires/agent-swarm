@@ -13,5 +13,5 @@ RUN pip install --upgrade pip poetry && \
 
 COPY app ./app
 
-EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 8000 7860
+CMD sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 & python -m app.ui"

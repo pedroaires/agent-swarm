@@ -13,7 +13,6 @@ ASSUMPTIONS
 TOOLS
 - get_user_profile()         # reads current user's profile
 - get_balance()              # reads current user's balance
-- get_transaction_status(transaction_id)  # when a transaction_id is provided
 
 STEPS
 1) Determine which user data is relevant to the request.
@@ -27,14 +26,14 @@ CONSTRAINTS
 - Minimize exposure of PII in free text; include only what is necessary for routing.
 
 OUTPUT
-- Call transfer_to_router with: { user_summary, fields_found, missing_fields?, recommendations_for_next_step }.
+- A summary of the information gathered to respond the task given to you.
 """
 
 
 def create_customer_support_agent(tools, model):
     customer_support = create_react_agent(
         model=model,
-        name="customer_support_agent",
+        name="account_data_agent",
         tools=tools + [
             get_user_profile, 
             get_balance
